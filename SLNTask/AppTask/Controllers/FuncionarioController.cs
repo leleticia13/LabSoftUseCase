@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AppTask.Models;
 
-namespace AppTask.Views
+namespace AppTask.Controllers
 {
     public class FuncionarioController : Controller
     {
