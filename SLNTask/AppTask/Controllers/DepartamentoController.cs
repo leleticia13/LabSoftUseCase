@@ -21,7 +21,7 @@ namespace AppTask.Controllers
         // GET: Departamento
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Departamentos.ToListAsync());
+            return View(await _context.Departamento.ToListAsync());
         }
 
         // GET: Departamento/Details/5
@@ -32,7 +32,7 @@ namespace AppTask.Controllers
                 return NotFound();
             }
 
-            var departamento = await _context.Departamentos
+            var departamento = await _context.Departamento
                 .FirstOrDefaultAsync(m => m.DepartamentoId == id);
             if (departamento == null)
             {
@@ -72,7 +72,7 @@ namespace AppTask.Controllers
                 return NotFound();
             }
 
-            var departamento = await _context.Departamentos.FindAsync(id);
+            var departamento = await _context.Departamento.FindAsync(id);
             if (departamento == null)
             {
                 return NotFound();
@@ -123,7 +123,7 @@ namespace AppTask.Controllers
                 return NotFound();
             }
 
-            var departamento = await _context.Departamentos
+            var departamento = await _context.Departamento
                 .FirstOrDefaultAsync(m => m.DepartamentoId == id);
             if (departamento == null)
             {
@@ -138,10 +138,10 @@ namespace AppTask.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var departamento = await _context.Departamentos.FindAsync(id);
+            var departamento = await _context.Departamento.FindAsync(id);
             if (departamento != null)
             {
-                _context.Departamentos.Remove(departamento);
+                _context.Departamento.Remove(departamento);
             }
 
             await _context.SaveChangesAsync();
@@ -150,7 +150,7 @@ namespace AppTask.Controllers
 
         private bool DepartamentoExists(int id)
         {
-            return _context.Departamentos.Any(e => e.DepartamentoId == id);
+            return _context.Departamento.Any(e => e.DepartamentoId == id);
         }
     }
 }

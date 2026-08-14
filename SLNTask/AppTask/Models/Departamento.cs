@@ -9,5 +9,5 @@ public partial class Departamento
 
     public string Descricao { get; set; } = null!;
 
-    public byte[] Ativo { get; set; } = null!;
+    public bool Ativo { get; set; }
 }

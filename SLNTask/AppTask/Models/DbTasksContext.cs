@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using AppTask.Models;
 
 namespace AppTask.Models;
 
@@ -88,4 +89,6 @@ public partial class DbTasksContext : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+public DbSet<AppTask.Models.Departamento> Departamento { get; set; } = default!;
 }
