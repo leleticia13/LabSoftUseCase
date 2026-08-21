@@ -7,71 +7,40 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a href="/Tarefa/Create">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Descricao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataPlanejada)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataIniciada)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataFinalizada)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataCancelada)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StatusTarefa)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Prazo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Funcionario)
-            </th>
+            <th>Descrição</th>
+            <th>Data Planejada</th>
+            <th>Data Iniciada</th>
+            <th>Data Finalizada</th>
+            <th>Data Cancelada</th>
+            <th>Status da Tarefa</th>
+            <th>Prazo</th>
+            <th>Funcionário</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descricao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataPlanejada)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataIniciada)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataFinalizada)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataCancelada)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StatusTarefa)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Prazo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Funcionario.Nome)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Codigo">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Codigo">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Codigo">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Descricao</td>
+                <td>@item.DataPlanejada</td>
+                <td>@item.DataIniciada</td>
+                <td>@item.DataFinalizada</td>
+                <td>@item.DataCancelada</td>
+                <td>@item.StatusTarefa</td>
+                <td>@item.Prazo</td>
+                <td>@item.Funcionario?.Nome</td>
+                <td>
+                    <a href="/Tarefa/Edit/@item.Codigo">Edit</a> |
+                    <a href="/Tarefa/Details/@item.Codigo">Details</a> |
+                    <a href="/Tarefa/Delete/@item.Codigo">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
