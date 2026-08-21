@@ -39,9 +39,56 @@
                 <td>
                     <a href="/Tarefa/Edit/@item.Codigo" class="btn btn-primary btn-sm text-white">Alterar</a>
                     <a href="/Tarefa/Details/@item.Codigo" class="btn btn-success btn-sm text-white" style="background-color: #006400;">Detalhe</a>
-                    <a href="/Tarefa/Delete/@item.Codigo" class="btn btn-danger btn-sm text-white">Delete</a>
+                    <button type="button" class="btn btn-danger btn-sm text-white" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="@item.Codigo" data-descricao="@item.Descricao">
+                        Delete
+                    </button>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+<!-- Modal de Confirmação de Exclusão -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteModalLabel">Confirmação de Exclusão</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Deseja realmente excluir a tarefa: <strong id="tarefaDescricao"></strong>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="modal-btn-cancel btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <!-- Formulário que dispara o POST de Delete para a Controller -->
+                <form id="deleteForm" method="post" action="">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-danger">Sim, Excluir</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Script para capturar os dados da linha da tabela e injetar no Modal dinamicamente
+        var deleteModal = document.getElementById('deleteModal');
+        deleteModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget; // Botão que acionou o modal
+            var id = button.getAttribute('data-id'); // Extrai o ID
+            var descricao = button.getAttribute('data-descricao'); // Extrai a descrição
+
+            // Atualiza o texto da descrição no corpo do modal
+            var modalDescricaoSpan = deleteModal.querySelector('#tarefaDescricao');
+            modalDescricaoSpan.textContent = descricao;
+
+            // Altera o atributo 'action' do formulário interno para apontar para a rota correta de delete
+            var deleteForm = deleteModal.querySelector('#deleteForm');
+            deleteForm.action = '/Tarefa/Delete/' + id;
+        });
+    </script>
+}
+
+
