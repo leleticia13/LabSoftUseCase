@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1 class="mb-4">Lista de Tarefas</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -40,6 +40,7 @@
         </tr>
     </thead>
     <tbody>
+<<<<<<< Updated upstream
 @foreach (var item in Model) {
         <tr>
             <td>
@@ -73,5 +74,26 @@
             </td>
         </tr>
 }
+=======
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Descricao</td>
+                <td>@item.DataPlanejada</td>
+                <td>@item.DataIniciada</td>
+                <td>@item.DataFinalizada</td>
+                <td>@item.DataCancelada</td>
+                <td>@item.StatusTarefa</td>
+                <td>@item.Prazo</td>
+                <td>@item.Funcionario?.Nome</td>
+                <td>
+                    <a href="/Tarefa/Edit/@item.Codigo" class="btn btn-primary btn-sm text-white">Alterar</a>
+                    <a href="/Tarefa/Details/@item.Codigo" class="btn btn-success btn-sm text-white" style="background-color: #006400;">Detalhe</a>
+                    <a href="/Tarefa/Delete/@item.Codigo" class="btn btn-danger btn-sm text-white">Delete</a>
+                    @* teste *@
+                </td>
+            </tr>
+        }
+>>>>>>> Stashed changes
     </tbody>
 </table>
