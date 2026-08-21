@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1 class="mb-4">Lista de Tarefas</h1>
 
 <p>
     <a href="/Tarefa/Create" class="btn btn-success text-white">Novo</a>
@@ -25,6 +25,41 @@
         </tr>
     </thead>
     <tbody>
+
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataPlanejada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataIniciada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataFinalizada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataCancelada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatusTarefa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prazo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Funcionario.Nome)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Codigo">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Codigo">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Codigo">Delete</a>
+            </td>
+        </tr>
+}
+
         @foreach (var item in Model)
         {
             <tr>
@@ -40,8 +75,15 @@
                     <a href="/Tarefa/Edit/@item.Codigo" class="btn btn-primary btn-sm text-white">Alterar</a>
                     <a href="/Tarefa/Details/@item.Codigo" class="btn btn-success btn-sm text-white" style="background-color: #006400;">Detalhe</a>
                     <a href="/Tarefa/Delete/@item.Codigo" class="btn btn-danger btn-sm text-white">Delete</a>
+
                 </td>
             </tr>
         }
+
+                    @* teste *@
+                </td>
+            </tr>
+        }
+
     </tbody>
 </table>
