@@ -14,6 +14,7 @@
 <body>
     @{
         var currentController = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
+      
     }
 
     <div class="app-shell">
@@ -40,6 +41,13 @@
                 <a class="@(currentController == "Incidentes" ? "active" : "")" asp-controller="Incidentes" asp-action="Index">
                     <i class="bi bi-exclamation-triangle"></i><span>Incidentes</span>
                 </a>
+                <a class="@(currentController == "CentralCusto" ? "active" : "")"
+                   asp-controller="CentralCusto"
+                   asp-action="Index">
+                    <i class="bi bi-cash-stack"></i>
+                    <span>Central de custos</span>
+                </a>
+
             </nav>
 
             <div class="sidebar-footer">

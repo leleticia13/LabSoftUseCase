@@ -1,41 +1,83 @@
 ﻿@model IEnumerable<AppTask.Models.CentralCusto>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Central de custos";
+    var total = Model.Count();
 }
 
-<h1>Index</h1>
+<div class="page-header">
+    <div>
+        <h1>Central de custos</h1>
+        <p class="text-muted">
+            Centrais de custo cadastradas na empresa.
+        </p>
+    </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.NomeCusto)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ValorAnualMeta)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NomeCusto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ValorAnualMeta)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.CentralId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CentralId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CentralId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <a href="/CentralCusto/Create"
+       class="btn btn-success text-white">
+        <i class="bi bi-plus-lg"></i>
+        Nova central de custo
+    </a>
+</div>
+
+<div class="stat-row">
+    <div class="stat-card accent-total">
+        <div class="stat-label">
+            <i class="bi bi-cash-stack"></i>
+            Total de centrais
+        </div>
+
+        <div class="stat-value">
+            @total
+        </div>
+    </div>
+</div>
+
+<div class="card-panel">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nome da central</th>
+                <th>Valor anual da meta</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.CentralId
+                    </td>
+
+                    <td>
+                        @item.NomeCusto
+                    </td>
+
+                    <td>
+                        R$ @item.ValorAnualMeta.ToString("N2")
+                    </td>
+
+                    <td>
+                        <a href="/CentralCusto/Edit/@item.CentralId"
+                           class="btn btn-primary btn-sm">
+                            Alterar
+                        </a>
+
+                        <a href="/CentralCusto/Details/@item.CentralId"
+                           class="btn btn-success btn-sm text-white">
+                            Detalhes
+                        </a>
+
+                        <a href="/CentralCusto/Delete/@item.CentralId"
+                           class="btn btn-danger btn-sm">
+                            Excluir
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
