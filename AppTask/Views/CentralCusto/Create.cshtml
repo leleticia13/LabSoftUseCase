@@ -1,104 +1,74 @@
-﻿@using System.Globalization
-@model IEnumerable<AppTask.Models.CentralCusto>
+﻿@model AppTask.Models.CentralCusto
 
 @{
-    ViewData["Title"] = "Central de custos";
-
-    var centrais = Model?.ToList() ?? new List<AppTask.Models.CentralCusto>();
-
-    var moeda = CultureInfo.GetCultureInfo("pt-BR");
+    ViewData["Title"] = "Nova central de custo";
 }
 
-<div class="page-header">
-    <div>
-        <h1>Central de custos</h1>
+<h1 class="mb-4">
+    Nova central de custo
+</h1>
 
-        <p class="text-muted">
-            Centrais de custo cadastradas no sistema.
-        </p>
+<div class="row">
+    <div class="col-md-6">
+        <form action="/CentralCusto/Create"
+              method="post">
+
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(
+            true,
+                        "",
+                        new { @class = "text-danger" })
+
+            <div class="mb-3">
+                <label asp-for="NomeCusto"
+                       class="form-label">
+                </label>
+
+                <input asp-for="NomeCusto"
+                       class="form-control"
+                       maxlength="250"
+                       required />
+
+                <span asp-validation-for="NomeCusto"
+                      class="text-danger">
+                </span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ValorAnualMeta"
+                       class="form-label">
+                </label>
+
+                <input asp-for="ValorAnualMeta"
+                       type="number"
+                       class="form-control"
+                       min="0"
+                       step="0.01"
+                       placeholder="Ex.: 150000.00"
+                       required />
+
+                <span asp-validation-for="ValorAnualMeta"
+                      class="text-danger">
+                </span>
+            </div>
+
+            <button type="submit"
+                    class="btn btn-primary">
+                Salvar
+            </button>
+
+            <a href="/CentralCusto"
+               class="btn btn-secondary">
+                Voltar
+            </a>
+        </form>
     </div>
-
-    <a asp-action="Create"
-       class="btn btn-success text-white">
-        <i class="bi bi-plus-lg"></i>
-        Nova central de custo
-    </a>
 </div>
 
-<div class="card-panel">
-
-    @if (!centrais.Any())
-    {
-        <div class="p-4 text-center">
-            <i class="bi bi-database fs-2 text-muted"></i>
-
-            <p class="mt-2 mb-0 text-muted">
-                Nenhuma central de custo cadastrada.
-            </p>
-        </div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync(
+            "_ValidationScriptsPartial");
     }
-    else
-    {
-        <div class="table-responsive">
-
-            <table class="table table-striped table-hover">
-
-                <thead>
-                    <tr>
-                        <th>Código</th>
-                        <th>Nome da central</th>
-                        <th>Valor anual da meta</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    @foreach (var item in centrais)
-                    {
-                        <tr>
-
-                            <td>
-                                @item.CentralId
-                            </td>
-
-                            <td>
-                                @item.NomeCusto
-                            </td>
-
-                            <td>
-                                @item.ValorAnualMeta.ToString("C", moeda)
-                            </td>
-
-                            <td>
-
-                                <a asp-action="Edit"
-                                   asp-route-id="@item.CentralId"
-                                   class="btn btn-primary btn-sm">
-                                    Alterar
-                                </a>
-
-                                <a asp-action="Details"
-                                   asp-route-id="@item.CentralId"
-                                   class="btn btn-success btn-sm text-white">
-                                    Detalhes
-                                </a>
-
-                                <a asp-action="Delete"
-                                   asp-route-id="@item.CentralId"
-                                   class="btn btn-danger btn-sm">
-                                    Excluir
-                                </a>
-
-                            </td>
-
-                        </tr>
-                    }
-
-                </tbody>
-
-            </table>
-
-        </div>
 }
-</div>
