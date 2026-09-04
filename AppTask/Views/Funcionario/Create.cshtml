@@ -4,6 +4,7 @@
 @{
     ViewData["Title"] = "Novo Funcionário";
     var listaDepartamentos = ViewBag.DepartamentoId as IEnumerable<SelectListItem>;
+    var listaGerentes = ViewBag.CodigoGerente as IEnumerable<SelectListItem>;
 }
 
 <h1 class="mb-4">Novo Funcionário</h1>
@@ -51,6 +52,25 @@
                             <option value="@departamento.Value"
                                     selected="@(departamento.Selected ? "selected" : null)">
                                 @departamento.Text
+                            </option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="CodigoGerente" class="form-label">Gerente</label>
+
+                <select id="CodigoGerente" name="CodigoGerente" class="form-select">
+                    <option value="">Nenhum</option>
+
+                    @if (listaGerentes != null)
+                    {
+                        foreach (var gerente in listaGerentes)
+                        {
+                            <option value="@gerente.Value"
+                                    selected="@(gerente.Selected ? "selected" : null)">
+                                @gerente.Text
                             </option>
                         }
                     }

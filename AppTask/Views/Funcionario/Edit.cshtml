@@ -30,6 +30,14 @@
                 <span asp-validation-for="DepartamentoId" class="text-danger"></span>
             </div>
 
+            <div class="mb-3">
+                <label asp-for="CodigoGerente" class="form-label">Gerente</label>
+                <select asp-for="CodigoGerente" class="form-select" asp-items="ViewBag.CodigoGerente">
+                    <option value="">Nenhum</option>
+                </select>
+                <span asp-validation-for="CodigoGerente" class="text-danger"></span>
+            </div>
+
             <button type="submit" class="btn btn-primary">Salvar</button>
             <a asp-action="Index" class="btn btn-secondary">Voltar</a>
         </form>
@@ -37,5 +45,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

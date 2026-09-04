@@ -17,6 +17,7 @@ public partial class DbTasksContext : DbContext
     public virtual DbSet<Funcionario> Funcionarios { get; set; } = null!;
     public virtual DbSet<Tarefa> Tarefas { get; set; } = null!;
     public virtual DbSet<Incidente> Incidentes { get; set; } = null!;
+    public virtual DbSet<CentralCusto> CentralCusto { get; set; } = null!;
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -44,22 +45,32 @@ public partial class DbTasksContext : DbContext
 
         modelBuilder.Entity<Funcionario>(entity =>
         {
-            entity.HasKey(e => e.Codigo);
-            entity.ToTable("Funcionario");
+            modelBuilder.Entity<Funcionario>(entity =>
+            {
+                entity.HasKey(e => e.Codigo);
+                entity.ToTable("Funcionario");
 
-            entity.Property(e => e.Nome)
-                .HasMaxLength(100)
-                .IsUnicode(false);
+                entity.Property(e => e.Nome)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
 
-            entity.Property(e => e.Cargo)
-                .HasMaxLength(50)
-                .IsUnicode(false);
+                entity.Property(e => e.Cargo)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
-            entity.HasOne(e => e.Departamento)
-                .WithMany(e => e.Funcionarios)
-                .HasForeignKey(e => e.DepartamentoId)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_Funcionario_Departamento");
+                entity.HasOne(e => e.Departamento)
+                    .WithMany(e => e.Funcionarios)
+                    .HasForeignKey(e => e.DepartamentoId)
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .HasConstraintName("FK_Funcionario_Departamento");
+
+                // NOVO: relação do funcionário com o gerente (autorrelacionamento)
+                entity.HasOne(e => e.Gerente)
+                    .WithMany(e => e.Subordinados)
+                    .HasForeignKey(e => e.CodigoGerente)
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .HasConstraintName("FK_Funcionario_Gerente");
+            });
         });
 
         modelBuilder.Entity<Tarefa>(entity =>
@@ -103,6 +114,19 @@ public partial class DbTasksContext : DbContext
             entity.Property(e => e.Resolvido)
                 .HasMaxLength(3)
                 .IsUnicode(false);
+        });
+
+        modelBuilder.Entity<CentralCusto>(entity =>
+        {
+            entity.HasKey(e => e.CentralId);
+            entity.ToTable("CentralCusto");
+
+            entity.Property(e => e.NomeCusto)
+                .HasMaxLength(250)
+                .IsUnicode(false);
+
+            entity.Property(e => e.ValorAnualMeta)
+                .HasColumnType("decimal(18,2)");
         });
     }
 }
