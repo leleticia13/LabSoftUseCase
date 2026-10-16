@@ -17,7 +17,7 @@ public partial class ReservaServico
 
     public int VeterinarioId { get; set; }
 
-    public virtual Cliente Cliente { get; set; } = null!;
+    public virtual Cliente? Cliente { get; set; } = null!;
 
-    public virtual Veterinario Veterinario { get; set; } = null!;
+    public virtual Veterinario? Veterinario { get; set; } = null!;
 }

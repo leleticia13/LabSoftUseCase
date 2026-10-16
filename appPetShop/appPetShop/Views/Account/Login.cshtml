@@ -1,0 +1,20 @@
+﻿@model appPetShop.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<form asp-controller="Account" asp-action="Login" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <label asp-for="Cpf"></label>
+    <input asp-for="Cpf" class="form-control" />
+    <span asp-validation-for="Cpf" class="text-danger"></span>
+
+    <button type="submit" class="btn btn-primary">Entrar</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
