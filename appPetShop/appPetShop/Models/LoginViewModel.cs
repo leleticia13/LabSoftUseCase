@@ -5,7 +5,7 @@ namespace appPetShop.Models
     public class LoginViewModel
     {
         [Required(ErrorMessage = "O CPF é obrigatório.")]
-        [Display(Name = "CPF do Cliente")]
+        [Display(Name = "CPF para a verificação")]
         public string Cpf { get; set; } = string.Empty;
     }
 }
